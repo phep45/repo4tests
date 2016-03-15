@@ -1,0 +1,16 @@
+package math.utils;
+
+/**
+ * Created by HAL on 2016-03-16.
+ *
+ */
+public class Arithmetics {
+
+    public static int add(int x, int y) {
+        return x + y;
+    }
+
+    public static int sub(int x, int y) {
+        return x - y;
+    }
+}
