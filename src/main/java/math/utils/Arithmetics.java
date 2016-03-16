@@ -13,4 +13,12 @@ public class Arithmetics {
     public static int sub(int x, int y) {
         return x - y;
     }
+
+    public static int multiply(int x, int y) {
+        return x * y;
+    }
+
+    public static double div(double x, double y) {
+        return x / y;
+    }
 }
