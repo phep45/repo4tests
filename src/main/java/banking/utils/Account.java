@@ -22,7 +22,7 @@ public class Account {
 
     public static void main(String[] args) {
         Account account = new Account(15000);
-        log.info(account.getInterest().toString());
+        log.info("Interest: " + account.getInterest().toString());
 
     }
 
