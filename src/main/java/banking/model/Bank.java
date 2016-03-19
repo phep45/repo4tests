@@ -28,6 +28,8 @@ public class Bank {
     }
 
     public void setName(String name) {
+        Preconditions.checkNotNull(name);
+        Preconditions.checkArgument(name.length() > 0);
         this.name = name;
     }
 
