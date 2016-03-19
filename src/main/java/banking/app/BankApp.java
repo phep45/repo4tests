@@ -22,9 +22,15 @@ public class BankApp {
         ing.setName("ING");
 
         Client client = (Client) context.getBean("client");
+        client.setName("Bill");
+        client.deposit(100);
         Client client2 = (Client) context.getBean("client");
-        System.out.println(bank);
-        System.out.println(ing);
+        client2.setName("Jill");
+
+        bank.addClient(client);
+        bank.addClient(client2);
+
+        bank.printClients();
 
         context.close();
     }

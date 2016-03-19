@@ -1,5 +1,6 @@
 package banking.model;
 
+import com.google.common.base.Preconditions;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +15,12 @@ public class Bank {
     private List<Client> clientsList = new ArrayList<>();
 
     public void addClient(Client client) {
+        Preconditions.checkNotNull(client, "No client specified");
         clientsList.add(client);
+    }
+
+    public void printClients() {
+        clientsList.forEach(System.out::println);
     }
 
     public String getName() {

@@ -43,10 +43,8 @@ public class Account {
         return interest.calculate(amount);
     }
 
-//    public static void main(String[] args) {
-//        Account account = new Account(15000);
-//        log.info("Interest: " + account.getInterest().toString());
-//
-//    }
-
+    @Override
+    public String toString() {
+        return "Balance: " + amount;
+    }
 }
