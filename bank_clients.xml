@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<bankclients>
+    <client id="1">
+        <account>
+            <amount>100</amount>
+        </account>
+        <name>Bill</name>
+    </client>
+    <client id="2">
+        <account>
+            <amount>200</amount>
+        </account>
+        <name>Will</name>
+    </client>
+    <client id="3">
+        <account>
+            <amount>300</amount>
+        </account>
+        <name>Jill</name>
+    </client>
+    <client id="4">
+        <account>
+            <amount>400</amount>
+        </account>
+        <name>Mill</name>
+    </client>
+</bankclients>

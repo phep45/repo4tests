@@ -7,6 +7,8 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 public class BankApp {
 
+    private BankApp(){}
+
     public static void main(String[] args) {
 
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
@@ -23,6 +25,7 @@ public class BankApp {
 
         Client client = (Client) context.getBean("client");
         client.setName("Bill");
+
         client.deposit(100);
         Client client2 = (Client) context.getBean("client");
         client2.setName("Jill");
@@ -30,7 +33,11 @@ public class BankApp {
         bank.addClient(client);
         bank.addClient(client2);
 
-        bank.printClients();
+        bank.saveClientsToFile(bank.getName() + "-clients.xml");
+
+
+
+
 
         context.close();
     }

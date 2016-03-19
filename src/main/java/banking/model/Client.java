@@ -4,17 +4,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 @Component
 @Scope("prototype")
+@XmlRootElement
 public class Client {
 
     @Autowired
     private Account account;
 
     private String name;
+    private Integer id;
+
+    private static int idGenerator;
 
     public Client(){
-
+        id = idGenerator++;
     }
 
     public void deposit(int amount) {
@@ -29,6 +37,7 @@ public class Client {
         return name;
     }
 
+    @XmlElement
     public void setName(String name) {
         this.name = name;
     }
@@ -46,7 +55,17 @@ public class Client {
         return account;
     }
 
+    @XmlElement
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    @XmlAttribute
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

@@ -1,26 +1,32 @@
 package banking.model;
 
 import com.google.common.base.Preconditions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+import java.io.File;
 
 @Component
 @Scope("prototype")
 public class Bank {
 
+    private static final Logger log = LoggerFactory.getLogger(Bank.class);
+
     private String name;
-    private List<Client> clientsList = new ArrayList<>();
+
+    @Autowired
+    private BankClients bankClients;
 
     public void addClient(Client client) {
         Preconditions.checkNotNull(client, "No client specified");
-        clientsList.add(client);
-    }
-
-    public void printClients() {
-        clientsList.forEach(System.out::println);
+        getBankClients().getAsList().add(client);
     }
 
     public String getName() {
@@ -33,8 +39,62 @@ public class Bank {
         this.name = name;
     }
 
+    public void loadClientsFromFile(String filename, boolean override) {
+        Preconditions.checkArgument(filename.endsWith(".xml"), "Only XML is supported");
+        BankClients tmpBankClients = new BankClients();
+        try {
+            tmpBankClients = parseXml(filename);
+        } catch (JAXBException e) {
+           log.error("Exception while reading from file: " + filename, e);
+        }
+
+        if (override) {
+            getBankClients().getAsList().addAll(tmpBankClients.getAsList());
+            return;
+        }
+        setBankClients(tmpBankClients);
+    }
+
+    private BankClients parseXml(String filename) throws JAXBException {
+        BankClients tmpBankClients;
+        try {
+            File file = new File(filename);
+            JAXBContext jaxbContext = JAXBContext.newInstance(BankClients.class);
+            Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+
+            tmpBankClients = (BankClients) unmarshaller.unmarshal(file);
+
+        } catch (JAXBException e) {
+            throw new JAXBException(e);
+        }
+        return tmpBankClients;
+    }
+
+    public void saveClientsToFile(String filename) {
+        Preconditions.checkArgument(filename.endsWith(".xml"), "Only XML is supported");
+        try {
+            File file = new File(filename);
+            JAXBContext jaxbContext = JAXBContext.newInstance(BankClients.class);
+            Marshaller marshaller = jaxbContext.createMarshaller();
+
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+            marshaller.marshal(bankClients, file);
+        } catch (JAXBException e) {
+            log.error("Exception while saving to file: " + filename, e);
+        }
+    }
+
     @Override
     public String toString() {
         return "Bank: " + name;
+    }
+
+    public BankClients getBankClients() {
+        return bankClients;
+    }
+
+    public void setBankClients(BankClients bankClients) {
+        this.bankClients = bankClients;
     }
 }
