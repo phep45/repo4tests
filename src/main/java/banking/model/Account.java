@@ -1,5 +1,6 @@
-package banking.utils;
+package banking.model;
 
+import banking.utils.Interest;
 import com.google.common.base.Preconditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
