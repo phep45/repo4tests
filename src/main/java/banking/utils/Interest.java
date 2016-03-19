@@ -33,6 +33,7 @@ public enum Interest {
     }
 
     public BigDecimal calculate(double amount) {
+        checkArgument(amount >= 0, "Negative values not allowed: %s", amount);
         return BigDecimal.valueOf(amount).multiply(BigDecimal.valueOf(rate)).setScale(SCALE, BigDecimal.ROUND_HALF_UP);
     }
 
