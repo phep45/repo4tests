@@ -16,7 +16,7 @@ public class Account {
     private int amount;
 
     public Account() {
-
+        this(0);
     }
 
     public Account(int amount) {
@@ -33,15 +33,19 @@ public class Account {
         this.amount -= amount;
     }
 
+    public int balance() {
+        return amount;
+    }
+
     public BigDecimal getInterest() {
         Interest interest = Interest.matcher(amount);
         return interest.calculate(amount);
     }
 
-    public static void main(String[] args) {
-        Account account = new Account(15000);
-        log.info("Interest: " + account.getInterest().toString());
-
-    }
+//    public static void main(String[] args) {
+//        Account account = new Account(15000);
+//        log.info("Interest: " + account.getInterest().toString());
+//
+//    }
 
 }

@@ -19,11 +19,11 @@ public class Client {
     }
 
     public void deposit(int amount) {
-        account.deposit(amount);
+        getAccount().deposit(amount);
     }
 
     public void withdraw(int amount) {
-        account.withdraw(amount);
+        getAccount().withdraw(amount);
     }
 
     public String getName() {
@@ -34,8 +34,20 @@ public class Client {
         this.name = name;
     }
 
+    public int balance() {
+        return getAccount().balance();
+    }
+
     @Override
     public String toString() {
         return "Client: " + name;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 }
