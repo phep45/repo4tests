@@ -19,12 +19,20 @@ public class BankClients {
     @XmlElement(name = "client")
     private List<Client> asList = new ArrayList<>();
 
+    public BankClients(){}
+
+    public BankClients(BankClients bankClients) {
+        bankClients.asList.forEach(this.asList::add);
+    }
+
     public List<Client> getAsList() {
-        return asList;
+        return new BankClients(this).asList;
     }
 
     public void setAsList(List<Client> asList) {
         this.asList = asList;
     }
+
+
 
 }

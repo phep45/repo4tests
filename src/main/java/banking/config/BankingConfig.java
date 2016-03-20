@@ -1,5 +1,6 @@
 package banking.config;
 
+import banking.model.Bank;
 import banking.model.Client;
 import com.google.common.collect.ImmutableList;
 import org.springframework.context.annotation.*;
@@ -18,4 +19,10 @@ public class BankingConfig {
         return ImmutableList.of(list);
     }
 
+    @Bean
+    public Bank bank() {
+        Bank bank = new Bank();
+        bank.setName("UBS");
+        return bank;
+    }
 }

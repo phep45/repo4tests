@@ -1,20 +1,18 @@
 package banking.model;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
+import java.util.List;
 
-@Component
-@Scope("prototype")
 public class Bank {
 
     private static final Logger log = LoggerFactory.getLogger(Bank.class);
@@ -92,6 +90,10 @@ public class Bank {
 
     public BankClients getBankClients() {
         return bankClients;
+    }
+
+    public ImmutableList<List<Client>> getBankClientsAsList() {
+        return ImmutableList.of(bankClients.getAsList());
     }
 
     public void setBankClients(BankClients bankClients) {
